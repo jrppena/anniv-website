@@ -1,60 +1,94 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useState } from "react"
 import { Heart, Plane, Sparkles, Gift } from "lucide-react"
 
 const milestones = [
   {
-    date: "2022",
-    title: "We Met",
-    description: "The beginning of everything. The moment that changed my life forever.",
+    date: "Grade 7",
+    title: "Where It All Began",
+    description: "We first shared a classroom as quiet schoolmates, not knowing this was the beginning of our story.",
     icon: Heart,
   },
   {
-    date: "2023",
-    title: "First Trip",
-    description: "Our first adventure together. Every journey is better with you.",
+    date: "Grade 8",
+    title: "Different Paths",
+    description: "You transferred schools, and the distance between us grew. For a while, our connection faded into silence.",
     icon: Plane,
   },
   {
-    date: "2024",
-    title: "Growing Stronger",
-    description: "More love, more memories. Our bond deepens with each passing day.",
+    date: "College Days",
+    title: "Destiny Reconnected Us",
+    description: "A simple Facebook post and your song request reopened our conversation and brought us back into each other's world.",
     icon: Sparkles,
   },
   {
-    date: "2026",
-    title: "4 Years Anniversary",
-    description: "Still choosing each other. Here&apos;s to forever.",
+    date: "One Week Later",
+    title: "Confession and Courting",
+    description:
+      "I told you how I felt, and to my joy, you felt the same. After seven months of courting, you finally said yes.",
+    icon: Heart,
+  },
+  {
+    date: "April 15, 2022",
+    title: "Officially Us",
+    description:
+      "Even through long distance - UPLB and Partido State - we chose each other and held on to our love.",
+    icon: Sparkles,
+  },
+  {
+    date: "Reading Breaks and Vacations",
+    title: "Bicol Trips and Little Reunions",
+    description:
+      "Every visit mattered. I cherished each trip to Bicol, every reading break, and every chance just to be near you.",
+    icon: Plane,
+  },
+  {
+    date: "April 15, 2023",
+    title: "First Anniversary",
+    description:
+      "We celebrated at our house, I surprised you, and I even made you handmade crochet flowers.",
+    icon: Plane,
+  },
+  {
+    date: "April 15, 2024",
+    title: "Second Anniversary",
+    description:
+      "We had our first photoshoot together and it was so fun. That picture is still on my frame, always sitting on my table.",
+    icon: Sparkles,
+  },
+  {
+    date: "April 15, 2025",
+    title: "Third Anniversary",
+    description:
+      "Even with long distance between us, I treated you to a meal and we still shared our best wishes with each other.",
+    icon: Heart,
+  },
+  {
+    date: "May 2025",
+    title: "Your Graduation Day",
+    description:
+      "I came home to witness your graduation. I could not have been more proud of you.",
+    icon: Gift,
+  },
+  {
+    date: "July - November 2025",
+    title: "Standing By Each Other",
+    description:
+      "Through review season, stress, misunderstandings, and hard days, we stayed patient, present, and committed to us.",
+    icon: Heart,
+  },
+  {
+    date: "Present Day",
+    title: "Fourth Anniversary",
+    description:
+      "We are celebrating our fourth anniversary long distance, but our love remains the same - only deeper and better.",
     icon: Gift,
   },
 ]
 
 export function TimelineSection() {
-  const [visibleItems, setVisibleItems] = useState<number[]>([])
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    const observers = itemRefs.current.map((ref, index) => {
-      if (!ref) return null
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setVisibleItems((prev) => [...new Set([...prev, index])])
-          }
-        },
-        { threshold: 0.3 }
-      )
-
-      observer.observe(ref)
-      return observer
-    })
-
-    return () => {
-      observers.forEach((observer) => observer?.disconnect())
-    }
-  }, [])
+  const [visibleItems] = useState<number[]>(milestones.map((_, index) => index))
 
   return (
     <section id="timeline" className="py-24 px-4 bg-background">
@@ -81,7 +115,6 @@ export function TimelineSection() {
             return (
               <div
                 key={milestone.date}
-                ref={(el) => { itemRefs.current[index] = el }}
                 className={`relative flex items-center mb-16 last:mb-0 ${
                   isEven ? "flex-row" : "flex-row-reverse"
                 }`}

@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react"
 import { Heart, Clock, Calendar, Sparkles } from "lucide-react"
 
-// Anniversary start date - April 14, 2022
-const ANNIVERSARY_DATE = new Date("2022-04-14T00:00:00")
+// Anniversary start date - April 15, 2022 (local time)
+const ANNIVERSARY_DATE = new Date(2022, 3, 15, 0, 0, 0)
 
 interface TimeUnit {
   value: number

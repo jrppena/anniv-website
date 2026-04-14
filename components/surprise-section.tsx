@@ -116,7 +116,7 @@ export function SurpriseSection() {
             A Promise for the Future
           </p>
           <p className="font-serif text-xl md:text-2xl text-foreground">
-            See you in our 10th anniversary
+            I promise to love you now, always, and forever.
           </p>
           <Heart className="w-6 h-6 text-primary fill-primary mx-auto mt-4" />
         </div>

@@ -12,8 +12,9 @@ export function HeroSection() {
   }, [])
 
   const scrollToJourney = () => {
-    const element = document.getElementById("timeline")
-    element?.scrollIntoView({ behavior: "smooth" })
+    const element = document.getElementById("love-counter")
+    element?.scrollIntoView({ behavior: "smooth", block: "start" })
+    window.dispatchEvent(new Event("anniv:start-journey"))
   }
 
   return (

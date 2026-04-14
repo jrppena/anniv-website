@@ -16,17 +16,38 @@ export function MusicPlayer() {
     return () => clearTimeout(timer)
   }, [])
 
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause()
-      } else {
-        audioRef.current.play().catch(() => {
-          // Autoplay was prevented, user needs to interact first
-          console.log("Autoplay prevented - waiting for user interaction")
-        })
+  useEffect(() => {
+    if (!audioRef.current) return
+    audioRef.current.volume = 0.6
+  }, [])
+
+  useEffect(() => {
+    const handleStartJourney = async () => {
+      if (!audioRef.current) return
+
+      try {
+        await audioRef.current.play()
+      } catch {
+        setIsPlaying(false)
       }
-      setIsPlaying(!isPlaying)
+    }
+
+    window.addEventListener("anniv:start-journey", handleStartJourney)
+    return () => window.removeEventListener("anniv:start-journey", handleStartJourney)
+  }, [])
+
+  const togglePlay = async () => {
+    if (!audioRef.current) return
+
+    if (isPlaying) {
+      audioRef.current.pause()
+      return
+    }
+
+    try {
+      await audioRef.current.play()
+    } catch {
+      setIsPlaying(false)
     }
   }
 
@@ -43,7 +64,9 @@ export function MusicPlayer() {
         ref={audioRef}
         loop
         preload="auto"
-        src="https://cdn.pixabay.com/audio/2022/02/15/audio_b24a90eac9.mp3"
+        src="/music/bg_1.mp3"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
       />
 
       <div
